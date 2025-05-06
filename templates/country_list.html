@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <title>Country Info</title>
+</head>
+<body class="container mt-4">
+  <h2>Countries</h2>
+  <form method="get" class="mb-3">
+    <input type="text" name="search" class="form-control" placeholder="Search country..." value="{{ search }}">
+  </form>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th><th>Code</th><th>Capital</th><th>Population</th><th>Timezone</th><th>Flag</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for country in countries %}
+      <tr>
+        <td>{{ country.name }}</td>
+        <td>{{ country.cca2 }}</td>
+        <td>{{ country.capital }}</td>
+        <td>{{ country.population }}</td>
+        <td>{{ country.timezones|join:", " }}</td>
+        <td><img src="{{ country.flag_url }}" alt="Flag" width="50"/></td>
+        <td>
+    <a href="{% url 'country_detail' country.pk %}" class="btn btn-sm btn-primary">Details</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>
